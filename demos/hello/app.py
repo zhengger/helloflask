@@ -7,18 +7,20 @@
 """
 import click
 from flask import Flask
+from flask import url_for
+# from flask_foo import Foo
 
 app = Flask(__name__)
-
 
 # the minimal Flask application
 @app.route('/')
 def index():
-    return '<h1>Hello, World!</h1>'
+    result = 10
+    return f"<h1>Hello, World {url_for('index')}!</h1>"
 
 
 # bind multiple URL for one view function
-@app.route('/hi')
+@app.route('/hi/')
 @app.route('/hello')
 def say_hello():
     return '<h1>Hello, Flask!</h1>'
