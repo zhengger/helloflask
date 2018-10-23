@@ -8,33 +8,46 @@
 import click
 from flask import Flask
 from flask import url_for
+from flask import redirect
 # from flask_foo import Foo
 
-app = Flask(__name__)
+app001 = Flask(__name__)
 
 # the minimal Flask application
-@app.route('/')
+@app001.route('/')
 def index():
     result = 10
     return f"<h1>Hello, World {url_for('index')}!</h1>"
 
 
 # bind multiple URL for one view function
-@app.route('/hi/')
-@app.route('/hello')
+@app001.route('/hi/')
+@app001.route('/hello')
 def say_hello():
+    """
+    multiple app.route() decorators for same viewfunction
+    :return:
+    """
     return '<h1>Hello, Flask!</h1>'
 
-
-# dynamic route, URL variable default
-@app.route('/greet', defaults={'name': 'Programmer'})
-@app.route('/greet/<name>')
+@app001.route('/greet/<name>')
+@app001.route('/greet', defaults={'name': 'Programmer'})
 def greet(name):
+    """
+    dynamic route, URL variable default
+    variable name in URL
+    :param name:
+    :return:
+    """
+    # redirect('/hello')
     return f'<h1>Hello, {name}!</h1>'
 
 
-# custom flask cli command
-@app.cli.command()
+@app001.cli.command()
 def hello():
+    """
+    custom flask cli command, remember to import click in the head first
+    :return:
+    """
     """Just say hello."""
     click.echo('Hello, Human!')
