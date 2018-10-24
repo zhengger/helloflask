@@ -46,7 +46,7 @@ def greet(name):
 @app001.cli.command()
 def hello():
     """
-    custom flask cli command, remember to import click in the head first
+    custom flask cli command, remember to import click in beginning
     :return:
     """
     """Just say hello."""
