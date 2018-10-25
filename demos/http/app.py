@@ -6,6 +6,8 @@
     :license: MIT, see LICENSE for more details.
 """
 import os
+from typing import List
+
 try:
     from urlparse import urlparse, urljoin
 except ImportError:
@@ -48,9 +50,12 @@ def go_back(year):
 
 
 # use any URL converter
-@app.route('/colors/<any(blue, white, red):color>')
+colorss = ['blue', 'white', 'red']
+print([n for n in str(colorss)[1:-1]]) # transfer a list to a series of strings
+
+@app.route(f"/colors/<any({str(colorss)[1:-1]}):color>")
 def three_colors(color):
-    return '<p>Love is patient and kind. Love is not jealous or boastful or proud or rude.</p>'
+    return f"<p>Love is patient and kind. Love is not jealous or boastful or proud or rude.---{color}</p>"
 
 
 # return error response
