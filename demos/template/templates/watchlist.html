@@ -1,19 +1,22 @@
 <!DOCTYPE html>
+{# comment #}
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{{ user.username }}'s Watchlist</title>
+    <title>Mr.{{ user.username }}'s Watchlist</title>
 </head>
 <body>
+{# {{ variable }} as a statement #}
 <a href="{{ url_for('index') }}">&larr; Return</a>
-<h2>{{ user.username }}</h2>
+<h2>Mr.{{ user.username }}</h2>
+{# {% if  %}...{% endif %} as a clause #}
 {% if user.bio %}
     <i>{{ user.bio }}</i>
 {% else %}
     <i>This user has not provided a bio.</i>
 {% endif %}
 {# Below is the movie list (this is comment) #}
-<h5>{{ user.username }}'s Watchlist ({{ movies|length }}):</h5>
+<h5>{{ user.username }}'s Watchlist ({{ movies|length }} and {{ bar() }} and {{ foo }}):</h5>
 <ul>
     {% for movie in movies %}
     <li>{{ movie.name }} - {{ movie.year }}</li>

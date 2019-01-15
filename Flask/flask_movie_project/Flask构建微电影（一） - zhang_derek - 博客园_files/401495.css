@@ -1,0 +1,387 @@
+#leftmenu h3{
+    background-color: #008eb7;
+background: #390;
+border-bottom: 1px solid #006600;
+radius: 10px;
+color: #FFFFFF;
+font-size: 1.2em;
+height: 1.8em;
+line-height: 1.8em;
+padding: 5px;
+text-indent: 0.5em;
+text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+border-radius:14px;
+    
+}
+#back-to-top {
+    background-color: #00CD00;
+    bottom: 0;
+    box-shadow: 0 0 6px #00CD00;
+    color: #444444;
+    padding: 10px 10px;
+    position: fixed;
+    right: 177px;
+    cursor: pointer;
+}
+
+
+
+/*生成博客目录的CSS*/
+#uprightsideBar{
+    font-size:14px;
+    font-family:Arial, Helvetica, sans-serif;
+    text-align:left;
+    position:fixed;/*将div的位置固定到距离top:50px，right:0px的位置，这样div就会处在最右边的位置，距离顶部50px*/
+    top:220px;
+    right:53px;
+    width: auto;
+    height: auto; 
+    
+    
+}
+#sideBarTab{
+    float:left;
+    width:30px; 
+    border:1px solid #e5e5e5;
+    border-right:none;
+    text-align:center;
+ 
+    background: rgb(237, 148, 161);
+    background-color: rgb(237, 148, 161);
+    background-image: none;
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-size: auto auto;
+    color:white;
+    border-radius: 10px;
+padding: 6px;
+font-family: PingFangSC-Regular, Verdana, Arial, '微软雅黑','宋体',FangSong,Tahoma,KaiTi,STXingkai,NSimSun;
+color: white;
+}
+
+#sideBarContents{
+    float:left;
+    overflow:auto; 
+    overflow-x:hidden;!important;
+    width:200px;
+    min-height:108px;
+    max-height:460px;
+    border:1px solid #e5e5e5;
+    border-right:none; 
+    background:#fff;
+}
+#sideBarContents dl{
+    margin:0;
+    padding:0;
+}
+
+#sideBarContents dt{
+    margin-top:5px;
+    margin-left:5px;
+    color: #fff;
+   
+   font-size:16px;     
+   background-color:#008eb7;
+   display:inline-block;
+}
+
+#sideBarContents dd, dt {
+    cursor: pointer;
+}
+
+#sideBarContents dd:hover, dt:hover {
+    color:#A7995A;
+}
+#sideBarContents dd{
+    margin-left:20px;
+   color:black ; 
+    
+}
+
+
+
+.icon_favorite {
+    background: transparent url('//files.cnblogs.com/files/jackson0714/kj.gif') no-repeat 0 0;
+    padding-left: 16px;
+}
+
+
+
+
+/*推荐和反对*/
+#div_digg {
+    padding: 10px;
+    position: fixed;
+    _position: absolute;
+    z-index: 1000;
+    bottom: 20px;
+    right: 0;
+    _right: 35px;
+    border: 1px solid #D9DBE1;
+    background-color: #FFFFFF;
+    filter: alpha(Opacity=80);
+    -moz-opacity: 1;
+    opacity: 1;
+    width:70px;
+}
+
+
+.icon_favorite {
+    background: transparent url('//files.cnblogs.com/files/jackson0714/kj.gif') no-repeat 0 0;
+    padding-left: 16px;
+}
+
+#blog_post_info_block a {
+    text-decoration: none;
+    color: #5B9DCA;
+    padding: 3px;
+}
+
+.qq{
+    color:red;
+    font-size:15px;
+    margin:8px;
+   font-weight: 500;
+}
+.gonggao{
+    margin:8px;
+ font-size:16px;
+    color:blue;
+}
+
+
+#divExpandViewArea{
+    position: fixed;
+    color: white;
+   
+    padding: 10px 10px;
+    left: 0px;
+    top: 547px;
+    cursor: pointer;
+    opacity: 0.9;
+    background-color: #68228B;
+}
+ 
+#divCollapseViewArea{
+    position: fixed;
+    color: white;
+    
+    padding: 10px 10px;
+    left: 0px;
+    top: 586px;
+    cursor: pointer;
+    opacity: 0.9;
+    background-color: #68228B;
+}
+
+
+/* adblock */
+#ad_t2 {
+    display: none;
+}
+.c_ad_block {
+    display: none;
+}
+
+
+/* 设置签名格式 */
+#MySignature {
+    display: none;
+    background-color: #B2E866;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px #6B6B6B;
+    padding: 10px;
+    line-height: 1.5;
+    text-shadow: 1px 1px 1px #FFF;
+    font-size: 16px;
+    font-family: 'Microsoft Yahei';
+}
+
+
+/* 左侧最新随笔 */
+#CatList_LinkList_0_Link_0{
+    margin-top:5px;
+}
+#CatList_LinkList_0_Link_1{
+   
+margin-top:5px;
+}
+#CatList_LinkList_0_Link_2{
+   
+    margin-top:5px;
+}
+#CatList_LinkList_0_Link_3{
+ 
+margin-top:5px;
+
+}
+#CatList_LinkList_0_Link_4{
+    
+margin-top:5px;
+
+}
+#CatList_LinkList_0_Link_5{
+    
+margin-top:5px;
+
+}
+#CatList_LinkList_0_Link_6{
+    
+margin-top:5px;
+
+}
+#CatList_LinkList_0_Link_7{
+    
+margin-top:5px;
+
+}
+#CatList_LinkList_0_Link_8{
+    
+margin-top:5px;
+
+}
+#CatList_LinkList_0_Link_9{
+    
+margin-top:5px;
+
+}
+#CatList_LinkList_0_Link_10{
+    
+margin-top:5px;
+
+}
+#CatList_LinkList_0_Link_11{
+    
+margin-top:5px;
+
+}
+#CatList_LinkList_0_Link_12{
+    
+margin-top:5px;
+
+}
+#CatList_LinkList_0_Link_13{
+    
+margin-top:5px;
+
+}
+
+#leftmenu a:hover {
+    background-color:#ff5e52;
+}
+.buryit{display:none;}
+
+#div_digg .diggit {
+    line-height: 1.5em !important;
+    margin-left:10px;
+}
+
+
+
+
+
+body { 
+     background-color: #efefef;
+    background-image:url(//images.cnblogs.com/cnblogs_com/today-happy/1214264/t_blog.jpg); 
+     background-repeat: no-repeat; 
+     background-attachment: fixed; 
+     background-position: center 0; 
+     background-size: cover; 
+    padding-top:0px;
+ 
+  }
+
+
+#header{display:none;}
+
+
+    #test33 ul {
+margin: 0;
+padding: 0;
+list-style-type: none; /*去除li前的标注*/
+background-color: #333;
+overflow: hidden; /*隐藏溢出的部分，保持一行*/
+}
+
+
+
+
+#test33 li {
+float: left; /*左浮动*/
+}
+
+
+
+
+#test33 li a, .dropbtn {
+display: inline-block; /*设置成块*/
+color: white;
+text-align: center;
+text-decoration: none;
+padding: 14px 16px;
+}
+
+
+
+
+#test33 li a:hover, .dropdown:hover .dropbtn { /*鼠标移上去，改变背景颜色*/
+background-color: blue;
+}
+
+
+#test33 .dropdown {
+/*display:inline-block将对象呈递为内联对象，但是对象的内容作为块对象呈递。旁边的内联对象会被呈递在同一行内，允许空格。*/
+display: inline-block;
+}
+
+
+
+
+#test33 .dropdown-content {
+display: none;
+position: absolute;
+background-color: #f9f9f9;
+min-width: 160px;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+
+#test33 .dropdown-content a {
+display: block;
+color: black;
+padding: 8px 10px;
+text-decoration:none;
+}
+
+
+#test33 .dropdown-content a:hover {
+background-color: #a1a1a1;
+}
+
+
+#test33 .dropdown:hover .dropdown-content{
+display: block;
+}
+
+
+/*公告栏时钟*/
+#clockdiv {
+
+text-align: left;
+
+}
+
+
+/*播放器
+.music-cd {
+    position: fixed;
+    width: 100px;
+    height: 200px;
+    top: %;
+    left:200px;
+
+}*/

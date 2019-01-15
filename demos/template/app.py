@@ -6,7 +6,9 @@
     :license: MIT, see LICENSE for more details.
 """
 import os
-from flask import Flask, render_template, flash, redirect, url_for, Markup
+from flask import Flask, render_template, flash, redirect, url_for, Markup, render_template_string, request
+import pandas as pd
+import numpy as np
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'secret string')
@@ -31,11 +33,16 @@ movies = [
     {'name': 'CoCo', 'year': '2017'},
 ]
 
-
 @app.route('/watchlist')
 def watchlist():
+    # try:
+    #     a = input("hello:",)
+    # except  as identifier:
+    #     pass
+    # else:
+    #     pass
     return render_template('watchlist.html', user=user, movies=movies)
-
+    # return render_template_string("Hello, {{name}}", name=user['username'])
 
 @app.route('/')
 def index():
@@ -61,7 +68,7 @@ def musical(s):
     return s + Markup(' &#9835;')
 
 
-# register template test
+# register template tests
 @app.template_test()
 def baz(n):
     if n == 'baz':
@@ -91,3 +98,20 @@ def page_not_found(e):
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template('errors/500.html'), 500
+
+
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Werver')
+    func()
+
+
+@app.route('/shutdown', methods=['GET', 'POST'])
+def shutdown():
+    shutdown_server()
+    # func = request.environ.get('werkzeug.server.shutdown')
+    # if func is None:
+    #     raise RuntimeError('Not running with the Werkzeug Werver')
+    # func()
+    # return 'Server shutting down' # return render_template('errors/500.html'), 500 return np.array(['a', 'b', 'c', 'd']) 

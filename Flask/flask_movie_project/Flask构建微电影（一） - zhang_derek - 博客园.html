@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flask构建微电影（一） - zhang_derek - 博客园</title>
+<link type="text/css" rel="stylesheet" href="Flask%E6%9E%84%E5%BB%BA%E5%BE%AE%E7%94%B5%E5%BD%B1%EF%BC%88%E4%B8%80%EF%BC%89%20-%20zhang_derek%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="Flask%E6%9E%84%E5%BB%BA%E5%BE%AE%E7%94%B5%E5%BD%B1%EF%BC%88%E4%B8%80%EF%BC%89%20-%20zhang_derek%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/bundle-AnotherEon001.css">
+<link type="text/css" rel="stylesheet" href="Flask%E6%9E%84%E5%BB%BA%E5%BE%AE%E7%94%B5%E5%BD%B1%EF%BC%88%E4%B8%80%EF%BC%89%20-%20zhang_derek%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/401495.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="Flask%E6%9E%84%E5%BB%BA%E5%BE%AE%E7%94%B5%E5%BD%B1%EF%BC%88%E4%B8%80%EF%BC%89%20-%20zhang_derek%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/bundle-AnotherEon001-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/derek1184405959/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/derek1184405959/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/derek1184405959/wlwmanifest.xml">
+<script src="Flask%E6%9E%84%E5%BB%BA%E5%BE%AE%E7%94%B5%E5%BD%B1%EF%BC%88%E4%B8%80%EF%BC%89%20-%20zhang_derek%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/jquery-2.js"></script>
+<script type="text/javascript">var currentBlogApp = 'derek1184405959', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="Flask%E6%9E%84%E5%BB%BA%E5%BE%AE%E7%94%B5%E5%BD%B1%EF%BC%88%E4%B8%80%EF%BC%89%20-%20zhang_derek%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.js" type="text/javascript"></script>
+<style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style></head>
+<body>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<!--<div id="i1" style="color:red;font-size:13px;padding:5px;">大江东去，浪淘尽，千古风流人物。故垒西边，人道是，三国周郎赤壁。乱石穿空，惊涛拍岸，卷起千堆雪。江山如画，一时多少豪杰。遥想公瑾当年，小乔初嫁了，雄姿英发。羽扇纶巾，谈笑间，樯橹灰飞烟灭。故国神游，多情应笑我，早生华发。人生如梦，一尊还酹江月。 </div>
+    <script>
+       function func(){
+           var tag = document.getElementById('i1');
+           var content = tag.innerText;
+           var f = content.charAt(0);
+           var l = content.substring(1,content.length);
+           var new_content = l + f;
+           tag.innerText = new_content;
+       }
+       setInterval('func()',2200);
+    </script>
+-->
+
+
+<span id="back-to-top"><a href="#test33">返回顶部</a></span>
+
+
+
+<div id="divExpandViewArea" onclick="$('#main_container').css({'margin-left':'-200px'});$('#leftmenu').css({'display':'none'});">扩大</div>
+ 
+<div id="divCollapseViewArea" onclick="$('#main_container').css({'margin-left':'0px'});$('#leftmenu').css({'display':'block'});">缩小</div>
+
+
+<a href="https://github.com/derek-zhang123/" title="我的github地址" target="_Blank" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+
+
+<a href="http://www.cnblogs.com/derek1184405959/" title="我的博客主页" target="_Blank" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+     
+<p style="text-align: center;font-size:35px;margin-bottom:19px;margin-top:20px;opacity: 0.5;">Zhang_derek（选择比努力更重要）</p>
+
+<div id="test33">
+    <ul style="margin-left:0px;margin-right: 0px;" class="test11">
+
+
+
+        <div class="dropdown">
+            <a href="https://www.cnblogs.com/" class="dropbtn"><span style="22px;opacity: 0.2;font-size: 18px">博客园</span></a>
+            <div class="dropdown-content">
+            </div>
+        </div>
+
+
+
+        <div class="dropdown">
+            <a href="http://www.cnblogs.com/derek1184405959/" class="dropbtn"><span style="opacity: 0.2;font-size: 18px">我的首页</span></a>
+            <div class="dropdown-content">
+            </div>
+        </div>
+
+
+
+
+        <div class="dropdown">
+            <a href="#" class="dropbtn">全部分类</a>
+            <div class="dropdown-content">
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1131360.html" target="_Blank">1.Python基础</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1212517.html" target="_Blank">2.python进阶</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1214774.html" target="_Blank">3.数据库</a>           
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1163820.html" target="_Blank">4.爬虫</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1214770.html" target="_Blank">5.前端</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1214771.html" target="_Blank">6.Django基础</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1215124.html" target="_Blank">7.flask基础</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1174868.html" target="_Blank">8.Django项目</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1192235.html" target="_Blank">9.REST framework</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1206098.html" target="_Blank">10.CRM客户关系管理</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1215982.html" target="_Blank">11.Flask构建微电影</a>  
+                 <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1215982.html" target="_Blank">12.搭建个人博客</a>    
+              
+               
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Python基础</a>
+            <div class="dropdown-content">
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8041517.html" target="_Blank">1.简介</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8041926.html" target="_Blank">2.数据类型</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8042679.html" target="_Blank">3.文件操作</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8043411.html" target="_Blank">4.迭代器生成器装饰器</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8044289.html" target="_Blank">5.函数</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8065488.html" target="_Blank">6.内置函数</a>
+
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8691714.html" target="_Blank">16.git常用命令</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1131360.html" target="_Blank">更多</a>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Python进阶</a>
+            <div class="dropdown-content">
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/9005830.html" target="_Blank">1.魔法函数</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/9011453.html" target="_Blank">2.深入类和对象</a>
+
+                <a class="menu" href="https://www.cnblogs.com/derek1184405959/p/9043472.html" target="_Blank">3.元类编程</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/9017182.html" target="_Blank">4.自定义序列类</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/9053628.html" target="_Blank">5.迭代器和生成器</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1212517.html" target="_Blank">更多</a>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Python爬虫</a>
+            <div class="dropdown-content">
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8448875.html" target="_Blank">1.urllib和urllib2</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8449159.html" target="_Blank">2.Opener和Requests</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8449682.html" target="_Blank">3.XPATH和BeautifulSoup4</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8449923.html" target="_Blank">4.利用多线程爬虫</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8450130.html" target="_Blank">5.Selenium模拟用户操作</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8450342.html" target="_Blank">6.Scrapy框架原理介绍</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8450457.html" target="_Blank">7.Spider类</a>
+
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1163820.html" target="_Blank">更多</a>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="dropdown">
+            <a href="#" class="dropbtn">前端基础</a>
+            <div class="dropdown-content">
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8313575.html" target="_Blank">1.HTML</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8322341.html" target="_Blank">2.CSS</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8324589.html" target="_Blank">3.Javascript</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8324860.html" target="_Blank">4.Dom</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8331168.html" target="_Blank">5.Jquery</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8331789.html" target="_Blank">6.Jquery实例</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8447397.html" target="_Blank">7.Ajax</a>
+
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1214770.html" target="_Blank">更多</a>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Django基础</a>
+            <div class="dropdown-content">
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8338229.html" target="_Blank">1.安装与运行</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8351759.html" target="_Blank">2.路由规则</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8377735.html" target="_Blank">3.Model</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8421195.html" target="_Blank">4.模板语言与分页</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8442120.html" target="_Blank">5.Cookie</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8445045.html" target="_Blank">6.Session</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8445842.html" target="_Blank">7.CSRF
+                    中间件</a>
+
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1214771.html" target="_Blank">更多</a>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="dropdown">
+            <a href="http://www.cnblogs.com/derek1184405959/" class="dropbtn">Flask基础</a>
+            <div class="dropdown-content">
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/9027171.html">1.快速入门</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/9028895.html">2.请求扩展和数据库连接池</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/9031618.html">3.信号和wtforms</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/9032613.html">4.SQLAlchemy</a>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="dropdown">
+            <a href="#" class="dropbtn">项目相关</a>
+            <div class="dropdown-content">
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8911961.html" target="_Blank">1.Django+nginx+uwsgi部署</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8567522.html" target="_Blank">2.用户注册和登录系统</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8590360.html" target="_Blank">3.在线教育平台</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/p/8733194.html" target="_Blank">4.生鲜超市</a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1206098.html" target="_Blank">5.CRM客户关系管理
+                </a>
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1215982.html" target="_Blank">6.个人博客
+                </a>
+
+                <a class="menu" href="http://www.cnblogs.com/derek1184405959/category/1174868.html" target="_Blank">更多</a>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="dropdown">
+            <a href="#" class="dropbtn">学习资源</a>
+            <div class="dropdown-content">
+                <a class="menu" href="https://docs.djangoproject.com/en/2.0/" target="_Blank">1.Django2.0官网</a>
+                <a class="menu" href="http://www.django-rest-framework.org/" target="_Blank">2.REST framework官网</a>
+                <a class="menu" href="http://docs.jinkan.org/docs/flask/" target="_Blank">3.Flask文档</a>
+                <a class="menu" href="http://www.runoob.com/bootstrap/bootstrap-tutorial.html" target="_Blank">4.Bootstrap教程</a>
+                <a class="menu" href="http://blog.didiaoyuan.com/2017/04/18/%E6%80%BB%E6%9C%89%E4%BD%A0%E8%A6%81%E7%9A%84%E7%BC%96%E7%A8%8B%E4%B9%A6%E5%8D%95(GitHub)/" target="_Blank">5.总有你要的书单</a>
+                <a class="menu" href="http://www.pythondoc.com/" target="_Blank">6.python中文学习大本营</a>
+                <a class="menu" href="https://cuiqingcai.com/" target="_Blank">7.爬虫学习博客</a>
+                <a class="menu" href="http://www.pythondoc.com/flask-mega-tutorial/index.html" target="_Blank">8.The
+                    Flask Mega-Tutorial </a>
+                <a class="menu" href="http://ondras.zarovi.cz/sql/demo/" target="_Blank">9.表设计工具 </a>
+                <a class="menu" href="http://flask.pocoo.org/extensions/" target="_Blank">10.Flask extensions</a>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="dropdown">
+            <a href="#" class="dropbtn">娱乐休闲</a>
+            <div class="dropdown-content">
+                <a class="menu" href="https://weibo.com/" target="_Blank">1.微博</a>
+                <a class="menu" href="http://720yun.com/" target="_Blank">2.全景图片欣赏</a>
+                <a class="menu" href="http://yingyu.xdf.cn/list_907_1.html" target="_Blank">3.双语阅读</a>
+                <a class="menu" href="http://china.nba.com/" target="_Blank">4.NBA</a>
+                <a class="menu" href="https://www.toutiao.com/" target="_Blank">5.今日头条</a>
+                <a class="menu" href="https://tieba.baidu.com/f?kw=%C4%DA%BA%AD%B6%CE%D7%D3&amp;fr=ala0&amp;tpl=5" target="_Blank">6.内涵段子</a>
+
+            </div>
+        </div>
+
+
+    </ul>
+</div>
+<!--PageBeginHtml Block End-->
+
+<div id="wrapper">
+<div id="header">
+
+<div id="top">
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/derek1184405959/">zhang_derek</a></h1>
+<div id="subtitle">You got a dream, you gotta protect it. People can't 
+do something themselves,they wanna tell you you can't do it.If you want 
+something, go get it.</div>
+</div>
+<div id="sub"><div id="blog_stats">
+<div class="BlogStats">随笔 - 134, 文章 - 2, 评论 - 123, 引用 - 0</div>
+</div></div>
+
+
+
+</div>
+<div id="main_container">
+<div id="main_content">
+<div id="content">
+	
+<div id="post_detail">
+	<div class="post">
+		<h2>
+			<a id="cb_post_title_url" href="https://www.cnblogs.com/derek1184405959/p/9034167.html">Flask构建微电影（一）</a>
+		</h2>
+		<div class="postbody">
+		<div id="cnblogs_post_body" class="blogpost-body"><h2 style="background-color: #008eb7; color: #fff; border-radius: 5px;" id="blogTitle0">第一章、项目介绍</h2>
+<h3 id="blogTitle1"><span style="color: #ff00ff;"><strong><span style="font-size: 18px;">&nbsp;1.1.前言&nbsp; &nbsp;</span> </strong></span>&nbsp; &nbsp;</h3>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;本教程我将带领大家如何使用flask框架开发微电影网站。Flask是python中最受欢迎的轻量级web框架，flask扩展丰富，冗余度小，可自由选择组合各种插件，性能优越。</p>
+<p>相比其他web框架十分轻量级，其优雅的设计哲学，易于学习掌握。小型项目快速开发，大型项目毫无压力。由于flask灵活开发的特点,python高手都会青睐flask,正基于</p>
+<p>此，它被许多公司应用在项目开发中，成为很多创业公司以及个人创业者门追捧的web开发框架，本教程主要使用flask构建一个个性化定制的前台结合后台管理系统的微</p>
+<p>电影网站，项目开发过程严格按照互联网公司的标准流程。让学习者在开发中写出更优雅简练的代码。</p>
+<h3 id="blogTitle2"><span style="color: #ff00ff;"><strong><span style="font-size: 18px;">&nbsp;1.2.掌握的技术</span></strong></span></h3>
+<p>通过学习本教程，你将掌握flask框架以下知识：</p>
+<ol>
+<li>学会使用整型、浮点型、路径性、字符串型正则表达式路由转化器</li>
+<li>学会使用ost与get请求、上传文件、cookie获取与响应、404处理</li>
+<li>学会使用模板自动转义、定义过滤器、定义全局上下文处理器、jinja2语法、包含、继承、定义宏</li>
+<li>学会使用flask-wtf定义表单模型、字段类型、字段验证、视图处理表单、模板使用表单</li>
+<li>学会使用flask-sqlalchemy定义数据库模型、添加数据、修改数据、查询数据、删除数据、数据库事件、数据迁移</li>
+<li>学会使用蓝图优化项目结构，实现微电影网站前台于后台业务逻辑</li>
+<li>学会flask的部署方法、安装编译nginx服务、安装编译python3.6服务、安装mysql服务以及通过nginx反向代理对视频流媒体限制下载速率、限制单个IP能发起的播放连接数　　　</li>
+</ol>
+<p>之后我们通过项目实战，结合各种flask的插件配置及使用，让大家体会flask的看家本领微内核+扩展插件，带领你前所未有的快感。</p>
+<h3 id="blogTitle3"><span style="color: #ff00ff;"><strong><span style="font-size: 18px;">1.3.用到的扩展插件&nbsp;</span></strong></span></h3>
+<p>本教程用到的扩展插件有</p>
+<ul>
+<li>werkzug工具箱</li>
+<li>pymysql数据库驱动</li>
+<li>sqlalchemy数据库orm</li>
+<li>wtforms表单验证工具</li>
+<li>jinjia2模板引擎</li>
+<li>flask-script命令行脚本</li>
+<li>functools定义高阶函数</li>
+</ul>
+<h3 id="blogTitle4"><span style="color: #ff00ff;"><strong><span style="font-size: 18px;">1.4.视频技术</span></strong></span></h3>
+<p>最后还将学到更实用的视频技术</p>
+<ul>
+<li>jwplayer播放器插件</li>
+<li>视频限速限IP访问</li>
+<li>flv、MP4视频格式支持</li>
+<li>nginx点播实现</li>
+</ul>
+<h3 id="blogTitle5"><span style="color: #ff00ff;"><strong><span style="font-size: 18px;">1.5.章节安排</span></strong></span></h3>
+<p>接下来介绍详细教程安排，教程一共十一章，大致分为六部分</p>
+<p>（1）教程介绍</p>
+<ul>
+<li>介绍微电影网站整体开发流程</li>
+<li>flask简介</li>
+<li>学完教程掌握的知识点</li>
+</ul>
+<p>（2）环境搭建与工具</p>
+<ul>
+<li>搭建开发环境安装依赖包、virtualenv虚拟化环境的使用</li>
+<li>pycharm编辑器的使用、介绍pip下载工具的使用</li>
+</ul>
+<p>（3）项目优化与模型设计</p>
+<ul>
+<li>使用flask的蓝图Blueprint规划项目结构</li>
+<li>使用flask sqlalchemy定义和业务需求相关的数据库模型</li>
+<li>结合mysql数据库生成数据表</li>
+</ul>
+<p>（4）前端搭建</p>
+<ul>
+<li>实现前台后台html布局页面搭建</li>
+<li>学习jinjia2引擎语法</li>
+<li>引入静态资源文件、404错误页面的处理</li>
+</ul>
+<p>（5）后端开发</p>
+<ul>
+<li>flask sqlalchemy 结合mysql数据表进行增删改查操作</li>
+<li>flask数据分页查询、路由装饰器定义、模板中变量调用登录会话机制、上传文件</li>
+<li>flask wtforms表单验证、flask自定义应用上下文、自定义权限装饰器对管理系统进行基于权限的访问控制</li>
+<li>flask的多表关联查询、关键字模糊查询等</li>
+</ul>
+<p>（6）网站部署</p>
+<ul>
+<li>实现在centos服务器行搭建nginx+mysql+python环境</li>
+<li>使用nginx反向代理多端口多进程部署微电影网站</li>
+<li>配置nginx流媒体访问限制参数</li>
+</ul>
+<h3 id="blogTitle6"><span style="color: #ff00ff;"><strong><span style="font-size: 18px;">1.6.技术储备要求</span></strong></span></h3>
+<p>只要你是pythoner，你就应该学会flask，作为一个合格的pytoner,只掌握一个框架是不够的，如果你有过其它python框架，例
+如django的使用经验，对比不同框架来学习，你将收获更多。多一项技能，就多一分工作机会哦！学习前，希望你符合以下技术储备要求，学习本教程的必备
+基础是：</p>
+<ul>
+<li>有自学能力</li>
+<li>需要掌握python基本语法</li>
+<li>会使用mysql数据库</li>
+<li>会liunx基本操作</li>
+<li>有前端基础知识</li>
+</ul>
+<p>小伙伴们还在等什么，一起来实战吧！</p>
+<h3 id="blogTitle7"><span style="color: #ff00ff;"><strong><span style="font-size: 18px;">1.7.系统功能介绍</span></strong></span></h3>
+<p><span style="font-size: 14px;">前台</span></p>
+<ul>
+<li>会员登录及注册</li>
+<li>会员中心</li>
+<li>电影播放</li>
+<li>电影评论</li>
+<li>收藏电影</li>
+</ul>
+<p><span style="font-size: 14px;">后台</span></p>
+<ul>
+<li>管理员登录</li>
+<li>修改密码</li>
+<li>标签管理</li>
+<li>上映预告管理</li>
+<li>会员管理</li>
+<li>评论管理</li>
+<li>收藏管理</li>
+<li>角色管理</li>
+<li>权限管理</li>
+</ul>
+<p><span style="font-size: 14px;">开发及生产环境</span></p>
+<ul>
+<li>win7</li>
+<li>python3</li>
+<li>mysql</li>
+<li>html5</li>
+<li>flask</li>
+<li>nginx</li>
+<li>pycharm</li>
+</ul>
+<h3 id="blogTitle8"><span style="color: #ff00ff;"><strong><span style="font-size: 18px;">1.8.python web框架对比</span></strong></span></h3>
+<p><span style="color: #000000; font-size: 16px;">三种web框架的比较</span></p>
+<ul>
+<li>Flask 扩展丰富，冗余度小，可自由选择组合各种插件，性能优越，相比其他web框架十分轻量级，其优雅的</li>
+</ul>
+<p>　　&nbsp; &nbsp;设计哲学易于学习掌握，小型项目快速开发，大型项目毫无压力，FLask灵活开发，python高手基本都会喜欢flask</p>
+<ul>
+<li>Django 是重量级全栈型web框架，虽然功能强大，但冗余度高，自带ORM和模板引擎，灵活和自由度不够高</li>
+</ul>
+<p>　　&nbsp; &nbsp; 开发小型项目时显得过于臃肿与庞大</p>
+<ul>
+<li>Tornado 是一个强大的、支持协程、高并发且可扩展的web服务器，发布于2009年9月，应用于FriendFeed</li>
+</ul>
+<p>　　&nbsp; &nbsp; Facebook等社交网站。Tornado的强项在于可以利用他的异步协程机制开发高并发的服务器系统</p>
+<p><span style="color: #ff00ff;"><strong><span style="font-size: 18px;">1.9.flask简介</span></strong></span></p>
+<p><span style="color: #000000; font-size: 14px;">flask简单介绍</span></p>
+<ul>
+<li>轻量级web应用框架</li>
+<li>WSGI工具箱采用Werkzeug</li>
+<li>模板引擎则使用Jinja2</li>
+<li>Flask使用BSD授权</li>
+</ul>
+<p><span style="color: #ff00ff;"><strong><span style="font-size: 18px;">1.10.“微内核”框架简介</span></strong></span></p>
+<p><span style="color: #000000; font-size: 14px;">微内核</span></p>
+<ul>
+<li>称为“microframework”，简单的核心，用extension增加其他功能。</li>
+<li>没有默认的数据库、窗体验证工具</li>
+<li>保留扩展的弹性，可用Flask-extension加入这些功能：ORM、窗体验证工具文件上传、各种开放方式身份验证技术</li>
+</ul>
+<p>&nbsp;</p>
+<h2 style="background-color: #008eb7; color: #fff; border-radius: 5px;" id="blogTitle9">第二章、环境搭建</h2>
+<h3 id="blogTitle10"><span style="color: #ff00ff;">2.1.虚拟环境搭建</span></h3>
+<p>（1）环境变量设置</p>
+<ul>
+<li>桌面新建文件夹Envs</li>
+<li>新建环境变量：以后创建虚拟环境会自动保存到这个路径</li>
+</ul>
+<p>　　<img src="Flask%E6%9E%84%E5%BB%BA%E5%BE%AE%E7%94%B5%E5%BD%B1%EF%BC%88%E4%B8%80%EF%BC%89%20-%20zhang_derek%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/1299879-20180407151455955-1352375689.png" alt=""></p>
+<p>（2）虚拟环境安装</p>
+<div class="cnblogs_code">
+<pre><span>pip install virtualenv
+
+pip install virtualenvwrapper-<span>win
+  
+mkvirtualenv flask_project    #创建虚拟环境
+<span>
+workon                       #查看有哪些虚拟环境
+
+workon flask_project      #进入创建的虚拟环境
+<span>
+deactivate.bat      #退出虚拟环境<br><br><span>activate.bat        #激活虚拟环境</span></span></span></span></span></pre>
+</div>
+<h3 id="blogTitle11"><span style="color: #ff00ff;"><strong><span style="font-size: 18px;">2.2.第一个flask程序</span></strong></span></h3>
+<p>（1）flask的安装</p>
+<div class="cnblogs_code">
+<pre>pip install -i https://pypi.douban.com/simple flask</pre>
+</div>
+<p>（2）创建项目</p>
+<p>创建项目movie_project,然后创建app.py</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">from</span> flask <span style="color: #0000ff;">import</span><span style="color: #000000;"> Flask
+
+</span><span style="color: #008000;">#</span><span style="color: #008000;">实例化flask对象</span>
+app = Flask(<span style="color: #800080;">__name__</span><span style="color: #000000;">)
+
+</span><span style="color: #008000;">#</span><span style="color: #008000;">将'/'和函数index的对应关系加到路由中</span>
+@app.route(<span style="color: #800000;">'</span><span style="color: #800000;">/</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+</span><span style="color: #0000ff;">def</span><span style="color: #000000;"> index():
+    </span><span style="color: #0000ff;">return</span> <span style="color: #800000;">'</span><span style="color: #800000;">Hello World!</span><span style="color: #800000;">'</span>
+
+<span style="color: #0000ff;">if</span> <span style="color: #800080;">__name__</span> == <span style="color: #800000;">'</span><span style="color: #800000;">__main__</span><span style="color: #800000;">'</span><span style="color: #000000;">:</span>
+    app.run()</pre>
+</div>
+<p>浏览器访问：http://127.0.0.1:5000/</p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<p class="postfoot">
+			posted on <span id="post-date">2018-05-14 01:31</span> <a href="http://www.cnblogs.com/derek1184405959/">zhang_derek</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=9034167" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(9034167);return false;">收藏</a>
+		</p>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=401495,cb_entryId=9034167,cb_blogApp=currentBlogApp,cb_blogUserGuid='89c4c4dc-b653-40c4-f8fb-08d52f269005',cb_entryCreatedDate='2018/5/14 1:31:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+	</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"></div>
+<div id="under_post_news"></div>
+<div id="cnblogs_c2" class="c_ad_block"></div>
+<div id="under_post_kb"></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+</div>
+</div>
+<div id="leftmenu">
+
+
+<h3>导航</h3>
+<ul>
+<li>
+<a id="blog_nav_sitehome" href="http://www.cnblogs.com/">博客园</a></li>
+<li>
+<a id="blog_nav_myhome" class="two_words" href="http://www.cnblogs.com/derek1184405959/">首页</a></li>
+<li>
+<a id="blog_nav_newpost" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li>
+<a id="blog_nav_contact" accesskey="9" class="two_words" rel="nofollow" href="https://msg.cnblogs.com/send/zhang_derek">联系</a></li>
+<li>
+<a id="blog_nav_rss" class="two_words" href="http://www.cnblogs.com/derek1184405959/rss">订阅</a>
+<a id="blog_nav_rss_image" href="http://www.cnblogs.com/derek1184405959/rss"><img src="Flask%E6%9E%84%E5%BB%BA%E5%BE%AE%E7%94%B5%E5%BD%B1%EF%BC%88%E4%B8%80%EF%BC%89%20-%20zhang_derek%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/xml.gif" alt="订阅"></a>
+</li>
+<li>
+<a id="blog_nav_admin" class="two_words" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+
+<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+<meta name="vs_showGrid" content="False">
+
+<h3>公告</h3>
+<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+
+<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+
+</div>
+</div>
+<div class="clear"></div>
+<div id="footer">
+
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © zhang_derek
+</p>
+</div>
+</div>
+
+<!--PageEndHtml Block Begin-->
+<script type="text/javascript">
+var BlogDirectory = {
+    /*
+        获取元素位置，距浏览器左边界的距离（left）和距浏览器上边界的距离（top）
+    */
+    getElementPosition:function (ele) {        
+        var topPosition = 0;
+        var leftPosition = 0;
+        while (ele){              
+            topPosition += ele.offsetTop;
+            leftPosition += ele.offsetLeft;        
+            ele = ele.offsetParent;     
+        }  
+        return {top:topPosition, left:leftPosition}; 
+    },
+
+    /*
+    获取滚动条当前位置
+    */
+    getScrollBarPosition:function () {
+        var scrollBarPosition = document.body.scrollTop || document.documentElement.scrollTop;
+        return  scrollBarPosition;
+    },
+    
+    /*
+    移动滚动条，finalPos 为目的位置，internal 为移动速度
+    */
+    moveScrollBar:function(finalpos, interval) {
+
+        //若不支持此方法，则退出
+        if(!window.scrollTo) {
+            return false;
+        }
+
+        //窗体滚动时，禁用鼠标滚轮
+        window.onmousewheel = function(){
+            return false;
+        };
+          
+        //清除计时
+        if (document.body.movement) { 
+            clearTimeout(document.body.movement); 
+        } 
+
+        var currentpos =BlogDirectory.getScrollBarPosition();//获取滚动条当前位置
+
+        var dist = 0; 
+        if (currentpos == finalpos) {//到达预定位置，则解禁鼠标滚轮，并退出
+            window.onmousewheel = function(){
+                return true;
+            }
+            return true; 
+        } 
+        if (currentpos < finalpos) {//未到达，则计算下一步所要移动的距离
+            dist = Math.ceil((finalpos - currentpos)/10); 
+            currentpos += dist; 
+        } 
+        if (currentpos > finalpos) { 
+            dist = Math.ceil((currentpos - finalpos)/10); 
+            currentpos -= dist; 
+        }
+        
+        var scrTop = BlogDirectory.getScrollBarPosition();//获取滚动条当前位置
+        window.scrollTo(0, currentpos);//移动窗口
+        if(BlogDirectory.getScrollBarPosition() == scrTop)//若已到底部，则解禁鼠标滚轮，并退出
+        {
+            window.onmousewheel = function(){
+                return true;
+            }
+            return true;
+        }
+        
+        //进行下一步移动
+        var repeat = "BlogDirectory.moveScrollBar(" + finalpos + "," + interval + ")"; 
+        document.body.movement = setTimeout(repeat, interval); 
+    },
+    
+    htmlDecode:function (text){
+        var temp = document.createElement("div");
+        temp.innerHTML = text;
+        var output = temp.innerText || temp.textContent;
+        temp = null;
+        return output;
+    },
+
+    /*
+    创建博客目录，
+    id表示包含博文正文的 div 容器的 id，
+    mt 和 st 分别表示主标题和次级标题的标签名称（如 H2、H3，大写或小写都可以！），
+    interval 表示移动的速度
+    */
+    createBlogDirectory:function (id, mt, st, interval){
+         //获取博文正文div容器
+        var elem = document.getElementById(id);
+        if(!elem) return false;
+        //获取div中所有元素结点
+        var nodes = elem.getElementsByTagName("*");
+        //创建博客目录的div容器
+        var divSideBar = document.createElement('DIV');
+        divSideBar.className = 'uprightsideBar';
+        divSideBar.setAttribute('id', 'uprightsideBar');
+        var divSideBarTab = document.createElement('DIV');
+        divSideBarTab.setAttribute('id', 'sideBarTab');
+        divSideBar.appendChild(divSideBarTab);
+        var h2 = document.createElement('H2');
+        divSideBarTab.appendChild(h2);
+        var txt = document.createTextNode('目录导航');
+        h2.appendChild(txt);
+        var divSideBarContents = document.createElement('DIV');
+        divSideBarContents.style.display = 'none';
+        divSideBarContents.setAttribute('id', 'sideBarContents');
+        divSideBar.appendChild(divSideBarContents);
+        //创建自定义列表
+        var dlist = document.createElement("dl");
+        divSideBarContents.appendChild(dlist);
+        var num = 0;//统计找到的mt和st
+        mt = mt.toUpperCase();//转化成大写
+        st = st.toUpperCase();//转化成大写
+        //遍历所有元素结点
+        for(var i=0; i<nodes.length; i++)
+        {
+            if(nodes[i].nodeName == mt|| nodes[i].nodeName == st)    
+            {
+                //获取标题文本
+                var nodetext = nodes[i].innerHTML.replace(/<\/?[^>]+>/g,"");//innerHTML里面的内容可能有HTML标签，所以用正则表达式去除HTML的标签
+                nodetext = nodetext.replace(/ /ig, "");//替换掉所有的 
+                nodetext = BlogDirectory.htmlDecode(nodetext);
+                //插入锚        
+                nodes[i].setAttribute("id", "blogTitle" + num);
+                var item;
+                switch(nodes[i].nodeName)
+                {
+                    case mt:    //若为主标题 
+                        item = document.createElement("dt");
+                        break;
+                    case st:    //若为子标题
+                        item = document.createElement("dd");
+                        break;
+                }
+                
+                //创建锚链接
+                var itemtext = document.createTextNode(nodetext);
+                item.appendChild(itemtext);
+                item.setAttribute("name", num);
+                item.onclick = function(){        //添加鼠标点击触发函数
+                    var pos = BlogDirectory.getElementPosition(document.getElementById("blogTitle" + this.getAttribute("name")));
+                    if(!BlogDirectory.moveScrollBar(pos.top, interval)) return false;
+                };            
+                
+                //将自定义表项加入自定义列表中
+                dlist.appendChild(item);
+                num++;
+            }
+        }
+        
+        if(num == 0) return false; 
+        /*鼠标进入时的事件处理*/
+        divSideBarTab.onmouseenter = function(){
+            divSideBarContents.style.display = 'block';
+        }
+        /*鼠标离开时的事件处理*/
+        divSideBar.onmouseleave = function() {
+            divSideBarContents.style.display = 'none';
+        }
+
+        document.body.appendChild(divSideBar);
+    }
+    
+};
+
+window.onload=function(){
+    /*页面加载完成之后生成博客目录*/
+    BlogDirectory.createBlogDirectory("cnblogs_post_body","h2","h3",20);
+}
+
+</script>
+<!--PageEndHtml Block End-->
+
+
+<div class="uprightsideBar" id="uprightsideBar"><div id="sideBarTab"><h2>目录导航</h2></div><div style="display: none;" id="sideBarContents"><dl><dt name="0">第一章、项目介绍</dt><dd name="1">&nbsp;1.1.前言&nbsp;&nbsp;&nbsp;&nbsp;</dd><dd name="2">&nbsp;1.2.掌握的技术</dd><dd name="3">1.3.用到的扩展插件&nbsp;</dd><dd name="4">1.4.视频技术</dd><dd name="5">1.5.章节安排</dd><dd name="6">1.6.技术储备要求</dd><dd name="7">1.7.系统功能介绍</dd><dd name="8">1.8.pythonweb框架对比</dd><dt name="9">第二章、环境搭建</dt><dd name="10">2.1.虚拟环境搭建</dd><dd name="11">2.2.第一个flask程序</dd></dl></div></div></body></html>

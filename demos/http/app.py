@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 """
     :author: Grey Li (李辉)
     :url: http://greyli.com
@@ -8,17 +8,22 @@
 import os
 from typing import List
 
+from flask import (Flask, abort, jsonify, make_response, redirect, request,
+                   session, url_for)
+from jinja2 import escape
+from jinja2.utils import generate_lorem_ipsum
+
 try:
     from urlparse import urlparse, urljoin
 except ImportError:
     from urllib.parse import urlparse, urljoin
 
-from jinja2 import escape
-from jinja2.utils import generate_lorem_ipsum
-from flask import Flask, make_response, request, redirect, url_for, abort, session, jsonify
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'secret string')
+""" os.getenvb(key, default=None)
+    Return the value of the environment variable key if it exists, or default if it doesn’t. key, default and the result are bytes.
+"""
 
 
 # get name value from query string and cookie
@@ -28,13 +33,15 @@ def hello():
     name = request.args.get('name')
     if name is None:
         name = request.cookies.get('name', 'Human')
-    response = '<h1>Hello, %s!</h1>' % escape(name)  # escape name to avoid XSS
+    response = '<h1>Hello, %s!</h1>' % escape(name)  # escape(name) to avoid XSS
     # return different response according to the user's authentication status
     if 'logged_in' in session:
         response += '[Authenticated]'
     else:
         response += '[Not Authenticated]'
     return response
+    # return response, 302, {('Location', 'http://www.baidu.com')}
+    # return redirect(url_for('teapot'))
 
 
 # redirect
@@ -50,12 +57,23 @@ def go_back(year):
 
 
 # use any URL converter
-colorss = ['blue', 'white', 'red']
-print([n for n in str(colorss)[1:-1]]) # transfer a list to a series of strings
+colors = ('blue','white','red')
+print(f"{colors}")  # transfer a list to a series of strings
+# print("/colors/<any(% s): color>" % str(colors)[1:-1])
 
-@app.route(f"/colors/<any({str(colorss)[1:-1]}):color>")
+
+@app.route(f"/colors/<any({colors}):color>")
+# any只能接收list的前面两个元素，第三个元素不能接收，为什么？
+# @app.route("/colors/<any(blue, white, red): color>")  # % str(colors)[1:-1])
 def three_colors(color):
-    return f"<p>Love is patient and kind. Love is not jealous or boastful or proud or rude.---{color}</p>"
+    return f"<p>{color}Love is patient and kind. Love is not jealous or boastful or proud or rude</p>"
+
+
+# col = ['blue', 'red', 'white']
+# @app.route('/colors/<any(%s):color>' % str(col)[1:-1])
+# @app.route(f'/colors/<any({str(col)[1:-1]}):color>')
+# def three_colors(color):
+#     return f'<p> {color}Love is patient and kind. Love is not jealous or boastful or proud or rude.</ p>'
 
 
 # return error response
@@ -74,7 +92,7 @@ def not_found():
 
 
 # return response with different formats
-@app.route('/note', defaults={'content_type': 'text'})
+@app.route('/note', defaults={'content_type': 'html'})
 @app.route('/note/<content_type>')
 def note(content_type):
     content_type = content_type.lower()
@@ -167,7 +185,7 @@ def show_post():
     post_body = generate_lorem_ipsum(n=2)
     return '''
 <h1>A very long post</h1>
-<div class="body">%s</div>
+<div class="body">%s Here I'm!!!</div>
 <button id="load">Load More</button>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
@@ -187,20 +205,19 @@ $(function() {
 
 @app.route('/more')
 def load_post():
-    return generate_lorem_ipsum(n=1)
+    return generate_lorem_ipsum(n=3)
 
 
 # redirect to last page
 @app.route('/foo')
 def foo():
-    return '<h1>Foo page</h1><a href="%s">Do something and redirect</a>' \
-           % url_for('do_something', next=request.full_path)
+    return f'<h1>Foo page</h1><a href="{url_for("do_something", next=request.full_path)}">Do something and redirect</a>'
 
 
 @app.route('/bar')
 def bar():
-    return '<h1>Bar page</h1><a href="%s">Do something and redirect</a>' \
-           % url_for('do_something', next=request.full_path)
+    return f'<h1>Bar page</h1><a href="{url_for("do_something", next=request.full_path)}">Do something and redirect</a>'
+
 
 
 @app.route('/do-something')
@@ -212,14 +229,15 @@ def do_something():
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
     test_url = urlparse(urljoin(request.host_url, target))
-    return test_url.scheme in ('http', 'https') and \
-           ref_url.netloc == test_url.netloc
+    return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
 
 
 def redirect_back(default='hello', **kwargs):
     for target in request.args.get('next'), request.referrer:
         if not target:
-            continue
+            continue  # stop this time for and do next for
         if is_safe_url(target):
             return redirect(target)
     return redirect(url_for(default, **kwargs))
+
+

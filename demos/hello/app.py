@@ -15,10 +15,9 @@ app001 = Flask(__name__)
 
 # the minimal Flask application
 @app001.route('/')
-def index():
+def index()->str:
     result = 10
-    return f"<h1>Hello!!, World {url_for('index')}!</h1>"
-
+    return f"<h1>Hello!! World {url_for('index')}!</h1>"
 
 # bind multiple URL for one view function
 @app001.route('/hi/')
