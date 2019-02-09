@@ -15,6 +15,7 @@ from jinja2.utils import generate_lorem_ipsum
 
 try:
     from urlparse import urlparse, urljoin
+
 except ImportError:
     from urllib.parse import urlparse, urljoin
 
@@ -44,11 +45,12 @@ def hello():
     # return redirect(url_for('teapot'))
 
 
+
 # redirect
 @app.route('/hi')
 def hi():
     return redirect(url_for('hello'))
-
+    
 
 # use int URL converter
 @app.route('/goback/<int:year>')
@@ -89,7 +91,6 @@ def teapot(drink):
 @app.route('/404')
 def not_found():
     abort(404)
-
 
 # return response with different formats
 @app.route('/note', defaults={'content_type': 'html'})
@@ -211,7 +212,7 @@ def load_post():
 # redirect to last page
 @app.route('/foo')
 def foo():
-    return f'<h1>Foo page</h1><a href="{url_for("do_something", next=request.full_path)}">Do something and redirect</a>'
+    return f'<h1>Foo page</h1><a href="{url_for("do_something", next=request.full_path)}">Do something and redirect: {url_for("do_something", next=request.full_path)}</a>'
 
 
 @app.route('/bar')
@@ -223,16 +224,23 @@ def bar():
 @app.route('/do-something')
 def do_something():
     # do something here
-    return redirect_back()
+    print("Here I'm!")
+    # return redirect_back()
+    return redirect(request.referrer)
+
 
 
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
+    """urlparse: Parse a URL into 6 components:
+    <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
+    Return a 6-tuple: (scheme, netloc, path, params, query, fragment).
+    """
     test_url = urlparse(urljoin(request.host_url, target))
     return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
 
 
-def redirect_back(default='hello', **kwargs):
+def redirect_back(default: str='hello', **kwargs):
     for target in request.args.get('next'), request.referrer:
         if not target:
             continue  # stop this time for and do next for

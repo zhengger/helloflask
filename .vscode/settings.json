@@ -1,9 +1,9 @@
 {
     "workbench.colorCustomizations": {
-        "statusBar.background": "#030202",
-        "statusBar.foreground": "#0c6170",
-         "selection.background": "#ff0000",
-         "editor.selectionBackground": "#034155"
+        // "statusBar.background": "#030202",
+        // "statusBar.foreground": "#0c6170",
+        //  "selection.background": "#ff0000",
+         "editor.selectionBackground": "#50a3e657"
     },
     "python.pythonPath": "/Users/zheng/.local/share/virtualenvs/Helloflask-IApWF5Xl/bin/python",
     "python.autoComplete.addBrackets": true,
@@ -23,11 +23,15 @@
     "python.unitTest.unittestEnabled": false,
     "python.linting.prospectorEnabled": false,
     "python.linting.pydocstyleEnabled": false,
-    "editor.fontSize": 14,
+    "editor.fontSize": 14.3,
     "files.autoSave": "onFocusChange",
     "python.analysis.diagnosticPublishDelay": 10,
     "files.autoSaveDelay": 10,
     "editor.wordWrap": "on",
     "python.unitTest.promptToConfigure": false,
-    "python.linting.mypyEnabled": true
+    "python.linting.mypyEnabled": true,
+    "vim.easymotion": false,
+    "editor.fontFamily": "Menlo",
+    "terminal.integrated.fontFamily": "Menlo",
+    "terminal.explorerKind": "external",
 }

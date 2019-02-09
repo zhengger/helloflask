@@ -114,3 +114,9 @@ docs/_build/
 # Upload file
 demos/form/uploads/*
 !demos/form/uploads/.gitkeep
+
+# not current projects
+qask/
+QA_Platform
+.env
+/Users/zheng/Work/Helloflask/Flask

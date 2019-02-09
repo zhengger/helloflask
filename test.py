@@ -1,10 +1,41 @@
-from wsgiref.simple_server import make_server
+import asyncio
+import time
+from time import strftime
+
+from pyflakes.api import main
 
 
-def application(environ, start_response):
-    start_response('200 OK', [('Content-Type', 'text/html')])
-    return ['Hello World!']
+def decor(func):
+    def wrap():
+        print("________________________")
+        func()
+        print("________________________")
+    return wrap()
 
-if __name__ == '__main__':
-    srv = make_server('localhost', 5005, application)
-    srv.serve_forever()
+@decor
+def print_text():
+    print("Hello Word!")
+
+# decorated = decor(print_text)
+
+# print_text()
+
+a, b = 5, 7
+a, b = False, True
+# if a and b:
+#     print(a)
+print(a or b)
+
+async def say_after(what, delay):
+    await asyncio.sleep(delay)
+    print(what)
+
+async def main():
+    task1 = asyncio.create_task(say_after('hello', 1))
+    task2 = asyncio.create_task(say_after('world', 2))
+    print(f"started at {time.strftime('%X')}")
+    await task1
+    await task2
+    print(f"finished at {time.strftime('%X')}")
+
+asyncio.run(main())
