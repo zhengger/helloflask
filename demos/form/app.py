@@ -18,9 +18,10 @@ from ppp.forms import LoginForm, FortyTwoForm, NewPostForm, UploadForm, MultiUpl
     RegisterForm, SigninForm2, RegisterForm2, RichTextForm
 
 app = Flask(__name__)
+# print(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'secret string')
 app.jinja_env.trim_blocks = True
-app.jinja_env.l__init__.pystrip_blocks = True
+app.jinja_env.pystrip_blocks = True
 
 # Custom config
 app.config['UPLOAD_PATH'] = os.path.join(app.root_path, 'uploads')
