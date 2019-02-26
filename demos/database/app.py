@@ -12,6 +12,7 @@ import click
 from flask import Flask
 from flask import redirect, url_for, abort, render_template, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, TextAreaField
 from wtforms.validators import DataRequired
@@ -24,6 +25,10 @@ else:
     prefix = 'sqlite:////'
 
 app = Flask(__name__)
+"""
+class flask.Flask(import_name, static_url_path=None, static_folder='static', static_host=None, host_matching=False, subdomain_matching=False, template_folder='templates', instance_path=None, instance_relative_config=False, root_path=None)
+"""
+
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 
@@ -33,7 +38,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', prefix + os.pa
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-
+migrate = Migrate(app, db)
 
 # handlers
 @app.shell_context_processor
@@ -45,10 +50,13 @@ def make_shell_context():
 
 @app.cli.command()
 @click.option('--drop', is_flag=True, help='Create after drop.')
+# @click means Command Line Interface Creation Kit
 def initdb(drop):
     """Initialize the database."""
     if drop:
+        click.confirm('This operation will delete the database, do you want to continue?', abort=True)
         db.drop_all()
+        click.echo('Drop tables.')
     db.create_all()
     click.echo('Initialized database.')
 
@@ -56,6 +64,8 @@ def initdb(drop):
 # Forms
 class NewNoteForm(FlaskForm):
     body = TextAreaField('Body', validators=[DataRequired()])
+    timestamp = TextAreaField('Timestamp', validators=[DataRequired()])
+    # body = TextAreaField('Body')
     submit = SubmitField('Save')
 
 
@@ -72,13 +82,15 @@ class DeleteNoteForm(FlaskForm):
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text)
-
+    # add a new entry "timestamp" and migrate database 
+    timestamp = db.Column(db.DateTime, nullable=True)
     # optional
     def __repr__(self):
         return '<Note %r>' % self.body
 
 
 @app.route('/')
+# app.add_url_rule('/', 'index', index)
 def index():
     form = DeleteNoteForm()
     notes = Note.query.all()
@@ -286,3 +298,6 @@ def increment_edit_time(target, value, oldvalue, initiator):
 # def increment_edit_time(**kwargs):
 #     if kwargs['target'].edit_time is not None:
 #         kwargs['target'].edit_time += 1
+if __name__ == "__main__":
+    app.run()
+    # pass
