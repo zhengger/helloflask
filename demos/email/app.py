@@ -26,8 +26,8 @@ app.config.update(
     MAIL_PORT=465,
     MAIL_USE_SSL=True,
     MAIL_USERNAME=os.getenv('MAIL_USERNAME'),
-    MAIL_PASSWORD=os.getenv('MAIL_PASSWORD'),
-    MAIL_DEFAULT_SENDER=('Grey Li', os.getenv('MAIL_USERNAME'))
+    MAIL_PASSWORD=os.getenv('SENDGRID_API_KEY'),
+    MAIL_DEFAULT_SENDER=('Frank Zheng', os.getenv('MAIL_USERNAME'))
 )
 
 mail = Mail(app)
@@ -42,7 +42,7 @@ def send_smtp_mail(subject, to, body):
 # send over SendGrid Web API
 def send_api_mail(subject, to, body):
     sg = sendgrid.SendGridAPIClient(apikey=os.getenv('SENDGRID_API_KEY'))
-    from_email = SGEmail('Grey Li <noreply@helloflask.com>')
+    from_email = SGEmail('Frank Zheng <zhengger@gmail.com>')
     to_email = SGEmail(to)
     content = Content("text/plain", body)
     email = SGMail(from_email, subject, to_email, content)
@@ -70,7 +70,7 @@ def send_subscribe_mail(subject, to, **kwargs):
     message.html = render_template('emails/subscribe.html', **kwargs)
     mail.send(message)
 
-
+# form for editing email
 class EmailForm(FlaskForm):
     to = StringField('To', validators=[DataRequired(), Email()])
     subject = StringField('Subject', validators=[DataRequired()])
@@ -79,7 +79,7 @@ class EmailForm(FlaskForm):
     submit_api = SubmitField('Send with SendGrid API')
     submit_async = SubmitField('Send with SMTP asynchronously')
 
-
+# form for subscribing
 class SubscribeForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
