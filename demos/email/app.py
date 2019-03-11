@@ -33,9 +33,10 @@ app.config.update(
 mail = Mail(app)
 
 
+#TODO enable multiple recipents in the address box  
 # send over SMTP
 def send_smtp_mail(subject, to, body):
-    message = Message(subject, recipients=[to], body=body)
+    message = Message(subject, recipients=to.split(" "), body=body)
     mail.send(message)
 
 
@@ -51,12 +52,14 @@ def send_api_mail(subject, to, body):
 
 # send email asynchronously
 def _send_async_mail(app, message):
+    #! send() function needs current_app as parameter so we need 'with app.app_context'
     with app.app_context():
         mail.send(message)
 
 
 def send_async_mail(subject, to, body):
-    # app = current_app._get_current_object()  # if use factory (i.e. create_app()), get app like this
+    # app = current_app._get_current_object()  
+    # if use factory (i.e. create_app()), get app like this
     message = Message(subject, recipients=[to], body=body)
     thr = Thread(target=_send_async_mail, args=[app, message])
     thr.start()
@@ -72,7 +75,8 @@ def send_subscribe_mail(subject, to, **kwargs):
 
 # form for editing email
 class EmailForm(FlaskForm):
-    to = StringField('To', validators=[DataRequired(), Email()])
+    # to = StringField('To', validators=[DataRequired(), Email()])
+    to = StringField('To', validators=[DataRequired()])
     subject = StringField('Subject', validators=[DataRequired()])
     body = TextAreaField('Body', validators=[DataRequired()])
     submit_smtp = SubmitField('Send with SMTP')

@@ -34,4 +34,5 @@
     "editor.fontFamily": "Menlo",
     "terminal.integrated.fontFamily": "Menlo",
     "terminal.explorerKind": "external",
+    "python.linting.enabled": true,
 }

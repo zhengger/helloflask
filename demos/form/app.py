@@ -20,6 +20,7 @@ from ppp.forms import LoginForm, FortyTwoForm, NewPostForm, UploadForm, MultiUpl
 app = Flask(__name__)
 # print(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'secret string')
+
 app.jinja_env.trim_blocks = True
 app.jinja_env.pystrip_blocks = True
 
@@ -29,7 +30,7 @@ app.config['ALLOWED_EXTENSIONS'] = ['png', 'jpg', 'jpeg', 'gif']
 
 # Flask config
 # set request body's max length
-# app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024  # 3Mb
+app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024  # 3Mb
 
 # Flask-CKEditor config
 app.config['CKEDITOR_SERVE_LOCAL'] = True
@@ -64,7 +65,8 @@ def basic():
     form = LoginForm()
     if form.validate_on_submit():
         username = form.username.data
-        flash('Welcome home, %s!' % username)
+        # flash('Welcome home, %s!' % username)
+        flash(f'Welcome home, {username}!')
         return redirect(url_for('index'))
     return render_template('basic.html', form=form)
 
@@ -88,7 +90,7 @@ def custom_validator():
     return render_template('custom_validator.html', form=form)
 
 
-@app.route('/uploads/<path:filename>')
+@app.route('/uploads/<path:filename>') # <[converter:]variable_name> path: like string but also accepts slashes
 def get_file(filename):
     return send_from_directory(app.config['UPLOAD_PATH'], filename)
 
@@ -100,7 +102,7 @@ def show_images():
 
 def allowed_file(filename):
     return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']  # 'rsplit': Returns a list of the words in the string, separated by the delimiter string (starting from right)  
 
 
 def random_filename(filename):
@@ -137,7 +139,7 @@ def multi_upload():
             return redirect(url_for('multi_upload'))
 
         # check if the post request has the file part
-        if 'photo' not in request.files:
+        if 'photo' not in request.files:  # 'photo' is an attribute of the 'MultiUploadForm' class in form.py
             flash('This field is required.')
             return redirect(url_for('multi_upload'))
 
@@ -265,3 +267,17 @@ def upload_for_ckeditor():
     f.save(os.path.join(app.config['UPLOAD_PATH'], f.filename))
     url = url_for('get_file', filename=f.filename)
     return upload_success(url, f.filename)
+
+
+# Shutdown the simple server
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if not func:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
+@app.route('/shutdown', methods=['GET'])
+def shutdown():
+    shutdown_server()
+    return 'Server shutting down...'
+

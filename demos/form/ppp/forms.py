@@ -15,21 +15,29 @@ from wtforms.validators import DataRequired, Length, ValidationError, Email
 
 # 4.3.1 basic form example
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired(), Length(8, 128)])
+    username = StringField('Username', validators=[DataRequired(message=u"请输入正确的用户名")])
+    password = PasswordField('Password', validators=[DataRequired(message=u"请输入正确的密码"), Length(8, 128)])
     remember = BooleanField('Remember me')
     submit = SubmitField('Log in')
 
 
+def is_42(message=None):
+    if message is None:
+        message = u"Must be 42."
+    def _is_42(form, field):
+        if field.data != 42:
+            raise ValidationError(message)
+    return _is_42
+
 # custom validator
 class FortyTwoForm(FlaskForm):
-    answer = IntegerField('The Number')
+    answer = IntegerField('The Number', validators=[is_42()])
     submit = SubmitField()
-
-    def validate_answer(form, field):
+"""
+    def validate_answer(form, field): # validator_字段属性名(answer)
         if field.data != 42:
             raise ValidationError('Must be 42.')
-
+"""
 
 # upload form
 class UploadForm(FlaskForm):
